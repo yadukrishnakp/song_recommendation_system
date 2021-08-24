@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from recommenders import popularity_recommender_py
+from recommenders import popularity_recommender_py, item_similarity_recommender_py
 
 
 df1 = pd.read_csv('triplets_file.csv')
@@ -19,3 +19,10 @@ pr = popularity_recommender_py()
 pr.create_recommendation(table_merge, 'user_id', 'song')
 result = pr.recommendation(table_merge['user_id'][1])
 print(result)
+
+# recommend songs on the basis of most time listened
+ir = item_similarity_recommender_py()
+ir.create_recommendation(table_merge, 'user_id', 'song')
+user_items = ir.get_user_items(table_merge['user_id'][11])
+for user_item in user_items:
+    print(user_item)

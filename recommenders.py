@@ -27,3 +27,21 @@ class popularity_recommender_py:
         cols = cols[-1:] + cols[:-1]
         user_recommendations = user_recommendations[cols]
         return user_recommendations
+
+
+# recommend songs on the basis of most time listened
+class item_similarity_recommender_py:
+    def __init__(self):
+        self.table_data = None
+        self.user_id = None
+        self.item_id = None
+
+    def create_recommendation(self, table_data, user_id, item_id):
+        self.table_data = table_data
+        self.user_id = user_id
+        self.item_id = item_id
+
+    def get_user_items(self, user):
+        user_data = self.table_data[self.table_data[self.user_id] == user]
+        user_items = list(user_data[self.item_id].unique())
+        return user_items
